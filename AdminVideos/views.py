@@ -6,6 +6,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView #,
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
+
 
 def index(request):
     return render(request, "AdminVideos/index.html")
@@ -14,9 +16,18 @@ def index(request):
 class VideoList(ListView):
     model = Video
     context_object_name = "videos"
-    if Video.quienes_aparecen.find("Carlos") > -1:
-        model = Video
-        context_object_name = "videos"
+
+    def get_queryset(self):
+        query = "" # aquí irá el nombre del usuario logueado
+        object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+        return object_list 
+   
+   
+    #def get_queryset(self):
+    #    query = self.request.GET.get('q')
+    #    object_list = Movie.objects.filter(Q(title__icontains=query)|Q(genre__icontains=query))
+    #    return object_list
+    
 
 class VideoMineList(LoginRequiredMixin, VideoList):
     

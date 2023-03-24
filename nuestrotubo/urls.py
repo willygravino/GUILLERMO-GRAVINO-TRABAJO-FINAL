@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from AdminVideos.views import index, VideoList, VideoUpdate, VideoDelete, VideoCreate, Login, Logout, SignUp
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -30,4 +32,6 @@ urlpatterns = [
     path('signup', SignUp.as_view(), name="signup"),
 
 ]
- 
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

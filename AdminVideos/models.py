@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from embed_video.fields import EmbedVideoField
+
 
     #https://www.geeksforgeeks.org/urlfield-django-models/#field-options
     #models.URLField(max_length=200, **options)
@@ -23,7 +25,10 @@ class Video(models.Model):
 
     @property
     def image_url(self):
-        return self.image.url if self.image else ''
+        return self.image.url if self.image else '/media/videos/nuestrotubo.png'
 
     def __str__(self):
         return f"{self.id} - {self.nombre_video}"
+    
+class Item(models.Model):
+    video_youtube = EmbedVideoField()  # same like models.URLField()
