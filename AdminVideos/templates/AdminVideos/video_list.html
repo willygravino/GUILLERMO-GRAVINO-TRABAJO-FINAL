@@ -7,7 +7,7 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
 {% for video in videos %}
-
+ <!-- % if video.quienes_aparecen.find("Carlos Fernandez") > -1 % -->
     <div class="col">
       <div class="card shadow-sm">
         <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
@@ -15,6 +15,8 @@
           <p class="card-text">{{ video.nombre_video}}</p>
           <p class="card-text">{{ video.descripcion_video}}</p>
           <div class="d-flex justify-content-between align-items-center">
+            <h5>quienes en este video: {{ video.quienes_aparecen }}</h5>
+            <h5>quienes en este video: {{ video.quienes_aparecen.find("Carlos") }}</h5>            
             
           {% if user.is_authenticated and user.id == video.propietario.id %}
             <div class="btn-group">
@@ -26,14 +28,15 @@
           {% else %} 
           <small class="text-muted">Subido por {{ video.propietario }}</small> 
           {% endif %}
-            
-           
-            <small class="text-muted">Fecha de captura: {{ video.fecha_video }}</small>
+              <small class="text-muted">Fecha de captura: {{ video.fecha_video }}</small>
           </div>
         </div>
       </div>
     </div>
+ <!-- % else %
+    <h1>no esta Carlos Fernandez en este video</h1>  -->
 
-    {% endfor %}
+  {% endfor %}
+ <!-- % endfor % -->
 
     {% endblock %}

@@ -14,6 +14,9 @@ def index(request):
 class VideoList(ListView):
     model = Video
     context_object_name = "videos"
+    if Video.quienes_aparecen.find("Carlos") > -1:
+        model = Video
+        context_object_name = "videos"
 
 class VideoMineList(LoginRequiredMixin, VideoList):
     
