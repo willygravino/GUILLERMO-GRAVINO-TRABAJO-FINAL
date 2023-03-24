@@ -1,34 +1,22 @@
 {% extends "AdminVideos/index.html" %}
 {% load static %}
-{% load embed_video_tags %}
 
  {% block un_video %}
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
 {% for video in videos %}
-<iframe width="560" height="315" src="https://youtu.be/eTHexqNR_w0" frameborder="0" allowfullscreen></iframe>
-
-{% video item.video_youtube as my_video %}
-  URL: {{ https://youtu.be/eTHexqNR_w0 }}
-  Thumbnail: {{ my_video.thumbnail }}
-  Backend: {{ my_video.backend }}
-
-  {% video my_video "large" %}
-{% endvideo %}
-
-
-
-
+  <!-- <iframe width="560" height="315" src="https://youtu.be/eTHexqNR_w0" frameborder="0" allowfullscreen></iframe> -->
     <div class="col">
       <div class="card shadow-sm">
         <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
         <div class="card-body">
-          <h5>url foto:  {{video.image_url}} </h5>
-          <p class="card-text">{{ video.nombre_video}}</p>
+         <!-- <iframe width="560" height="315" src="{{video.image_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->   
+      <p class="card-text">{{ video.nombre_video}}</p>
           <p class="card-text">{{ video.descripcion_video}}</p>
+          <a href="{{video.url_video}}" type="button" class="btn btn-sm btn-outline-secondary">VER VIDEO</a>
           <div class="d-flex justify-content-between align-items-center">
-          <h5>quienes en este video:  {{video.quienes_aparecen}} </h5>
+        <!--  <h5>quienes en este video:  {{video.quienes_aparecen}} </h5>-->
           {% if user.is_authenticated and user.id == video.propietario.id %}
             <div class="btn-group">
               <a href="{% url 'videos-delete' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Eliminar</a>
