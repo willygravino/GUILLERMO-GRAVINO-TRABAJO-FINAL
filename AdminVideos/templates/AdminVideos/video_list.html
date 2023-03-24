@@ -1,0 +1,39 @@
+{% extends "AdminVideos/index.html" %}
+{% load static %}
+
+
+ {% block un_video %}
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+{% for video in videos %}
+
+    <div class="col">
+      <div class="card shadow-sm">
+        <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
+        <div class="card-body">
+          <p class="card-text">{{ video.nombre_video}}</p>
+          <p class="card-text">{{ video.descripcion_video}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            
+          {% if user.is_authenticated and user.id == video.propietario.id %}
+            <div class="btn-group">
+              <a href="{% url 'videos-delete' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+              <a href="{% url 'videos-update' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Editar</a>
+            </div>
+            <small class="text-muted">Subido por mi.</small> 
+
+          {% else %} 
+          <small class="text-muted">Subido por {{ video.propietario }}</small> 
+          {% endif %}
+            
+           
+            <small class="text-muted">Fecha de captura: {{ video.fecha_video }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    {% endblock %}
