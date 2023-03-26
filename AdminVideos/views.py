@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from AdminVideos.models import Video
+from AdminVideos.models import Video, Profile 
 # from AdminVideos.forms import VideoForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView #, DetailView,  
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
+from AdminVideos.forms import UsuarioForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Q
+from django.contrib.auth.models import User
+
 
 
 def index(request):
@@ -18,7 +19,7 @@ class VideoList(ListView):
     context_object_name = "videos"
 
     def get_queryset(self):
-        query = "" # aquí irá el nombre del usuario logueado
+        query  = "Ernesto Martinez" # Profile.nombre_completo # User.nombre_y_apellido? aquí irá el nombre del usuario logueado
         object_list = Video.objects.filter(quienes_aparecen__icontains=query)
         return object_list 
    
@@ -78,12 +79,12 @@ class VideoCreate(LoginRequiredMixin, CreateView):
  #       return result
 
 class Login(LoginView):
-    next_page = reverse_lazy("index")
+    next_page = reverse_lazy("videos-list")
 
 
 class SignUp(CreateView):
-    form_class = UserCreationForm
-    template_name = 'registration/signup.html' 
+    form_class = UsuarioForm
+    template_name = 'registration/signup.html'
     success_url = reverse_lazy('videos-list')
 
 
@@ -91,28 +92,28 @@ class Logout(LogoutView):
     template_name = "registration/logout.html"
 
 
-#class ProfileCreate(LoginRequiredMixin, CreateView):
-#    model = Profile
-#    success_url = reverse_lazy("videos-list")
-#    fields = ['avatar',]
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    model = Profile
+    success_url = reverse_lazy("videos-list")
+    fields = '__all__'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-#    def form_valid(self, form):
-#        form.instance.user = self.request.user
-#        return super().form_valid(form)
+class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
+    model = Profile
+    success_url = reverse_lazy("videos-list")
+    fields = '__all__'
 
-#class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
-#    model = Profile
-#    success_url = reverse_lazy("videos-list")
-#    fields = ['avatar',]
-#
-#    def test_func(self):
-#        return Profile.objects.filter(user=self.request.user).exists()
+    def test_func(self):
+        return Profile.objects.filter(user=self.request.user).exists()
 
 
 #class MensajeCreate(CreateView):
-#    model = Mensaje
-#    success_url = reverse_lazy('mensaje-create')
-#    fields = '__all__'
+ #   model = Mensaje
+ #   success_url = reverse_lazy('mensaje-create')
+ #   fields = '__all__'
 
 
 #class MensajeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -120,8 +121,8 @@ class Logout(LogoutView):
 #    context_object_name = "mensaje"
 #    success_url = reverse_lazy("mensaje-list")
 
-#    def test_func(self):
-#        return Mensaje.objects.filter(destinatario=self.request.user).exists()
+ #   def test_func(self):
+ #       return Mensaje.objects.filter(destinatario=self.request.user).exists()
     
 
 #class MensajeList(LoginRequiredMixin, ListView):
@@ -132,5 +133,3 @@ class Logout(LogoutView):
 #        import pdb; pdb.set_trace
 #        return Mensaje.objects.filter(destinatario=self.request.user).all()
     
-
-# Create your views here.

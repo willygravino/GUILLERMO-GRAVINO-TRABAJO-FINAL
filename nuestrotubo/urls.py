@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from AdminVideos.views import index, VideoList, VideoUpdate, VideoDelete, VideoCreate, Login, Logout, SignUp
+from AdminVideos.views import index, VideoList, VideoUpdate, VideoDelete, VideoCreate, Login, Logout, SignUp, ProfileCreate, ProfileUpdate
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -30,7 +30,9 @@ urlpatterns = [
     path('login', Login.as_view(), name="login"),
     path('logout', Logout.as_view(), name="logout"),
     path('signup', SignUp.as_view(), name="signup"),
-
+    path('perfil/crear', ProfileCreate.as_view(), name="profile-create"),
+    path('profile/<pk>/update', ProfileUpdate.as_view(), name="profile-update"),
+     
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

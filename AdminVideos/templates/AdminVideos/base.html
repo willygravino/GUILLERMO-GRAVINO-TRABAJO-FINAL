@@ -96,10 +96,15 @@
     </div>
   </div>
   <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#" class="navbar-brand d-flex align-items-center">
-        <strong>Inicio</strong>
-      </a>
+
+  <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
+    <strong>Inicio</strong>
+  </a>
+ 
+  {%if user.profile.avatar_url %}
+     <img src="{{user.profile.avatar_url}}" height="144" width="144">
+     <div class="container">
+  {% endif %} 
 
       {% if user.is_authenticated  %}
 
@@ -107,19 +112,32 @@
           <strong>Nuevo Video</strong>
         </a>
 
+        {% if user.profile %}
+        <a href="{% url 'profile-update' user.profile.id %}" class="navbar-brand d-flex align-items-center">
+          <strong>Editar Perfil de {{user.profile.nombre_completo}}</strong>
+        </a>
+       
+        {% else %}
+         <h1>ESTE SISTEMA NO FUNCIONA HASTA QUE NO INGRESE SU NOMBRE EN EL PERFIL</h1>
+        <a href="{% url 'profile-create' %}" class="navbar-brand d-flex align-items-center">
+          <strong>Crear Perfil</strong>
+        </a>
+
+        {% endif %}
+       
         <a href="{% url 'logout' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Logout</strong>
+          <strong>Hola {{user.username}} | Salir</strong>
         </a>
 
-      {% else %}  
+      {% else %} 
 
-        <a href="{% url 'login' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Login</strong>
-        </a>
+      <a href="{% url 'login' %}" class="navbar-brand d-flex align-items-center">
+         <strong>Login</strong>
+      </a>
 
-        <a href="{% url 'signup' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Registrarse</strong>
-        </a>
+      <a href="{% url 'signup' %}" class="navbar-brand d-flex align-items-center">
+        <strong>Registrarse</strong>
+      </a>
       {% endif %}  
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
