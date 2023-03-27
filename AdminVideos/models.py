@@ -39,6 +39,8 @@ class Profile(models.Model):
         return self.avatar.url if self.avatar else ''
      
 
+     
+
 class Mensaje(models.Model):
     mensaje = models.TextField(max_length=1000)
     email = models.EmailField()

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from AdminVideos.models import Video, Profile, Mensaje
 # from AdminVideos.forms import VideoForm
 from django.urls import reverse_lazy
@@ -23,9 +23,12 @@ class VideoList(ListView):
 
     def get_queryset(self):
         query  =  self.request.user.profile.nombre_completo # aquí irá el nombre del usuario logueado
-        object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+        if query:
+           object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+        else:
+           object_list = Video.objects.filter(quienes_aparecen__icontains="%%") 
         return object_list
-           
+            
    
     #def get_queryset(self):
     #    query = self.request.GET.get('q')
@@ -47,12 +50,21 @@ class VideoDetail(DetailView):
 class VideoUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Video
     success_url = reverse_lazy("videos-list")
-    fields = '__all__'
+    fields = ["nombre_video","url_video","descripcion_video","quienes_aparecen","image","fecha_video"]
+    #fields = '__all__'
+
+    def form_valid(self, form):
+        el_propietario = form.save(commit=False)
+        el_propietario.propietario = self.request.user
+        el_propietario.save()
+        return redirect(self.success_url)
 
     def test_func(self):
         user_id = self.request.user.id
         video_id =  self.kwargs.get("pk")
         return Video.objects.filter(propietario=user_id, id=video_id).exists()
+    
+
 
 
 class VideoDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -69,7 +81,14 @@ class VideoDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class VideoCreate(LoginRequiredMixin, CreateView):
     model = Video
     success_url = reverse_lazy("videos-list")
-    fields = '__all__'
+    fields = ["nombre_video","url_video","descripcion_video","quienes_aparecen","image","fecha_video"]
+#    fields = '__all__'
+
+    def form_valid(self, form):
+        el_propietario = form.save(commit=False)
+        el_propietario.propietario = self.request.user
+        el_propietario.save()
+        return redirect(self.success_url)
 
 
 #class VideoSearch(ListView):
