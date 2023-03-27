@@ -100,6 +100,14 @@
   <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
     <strong>Inicio</strong>
   </a>
+
+  <a href="{% url 'about' %}" class="navbar-brand d-flex align-items-center">
+    <strong>About</strong>
+  </a>
+
+  <a href="{% url 'mensaje-create' %}" class="navbar-brand d-flex align-items-center">
+    <strong>Enviar Mensaje</strong>
+  </a>
  
   {%if user.profile.avatar_url %}
      <img src="{{user.profile.avatar_url}}" height="144" width="144">
@@ -112,15 +120,19 @@
           <strong>Nuevo Video</strong>
         </a>
 
+        <a href="{% url 'mensaje-list' %}" class="navbar-brand d-flex align-items-center">
+          <strong>Mensajes</strong>
+        </a>
+
         {% if user.profile %}
         <a href="{% url 'profile-update' user.profile.id %}" class="navbar-brand d-flex align-items-center">
           <strong>Editar Perfil de {{user.profile.nombre_completo}}</strong>
         </a>
        
         {% else %}
-         <h1>ESTE SISTEMA NO FUNCIONA HASTA QUE NO INGRESE SU NOMBRE EN EL PERFIL</h1>
+         <!-- <h1>ESTE SISTEMA NO FUNCIONA HASTA QUE NO INGRESE SU NOMBRE EN EL PERFIL</h1> -->
         <a href="{% url 'profile-create' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Crear Perfil</strong>
+          <strong>Completar Perfil</strong>
         </a>
 
         {% endif %}
@@ -154,10 +166,10 @@
 <footer class="text-muted py-5">
     <div class="container">
       <p class="float-end mb-1">
-        <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#">Back to top</a>
+        <a href="{% url 'videos-list' %}">Volver</a>
       </p>
-      <p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="file:///">Visit the homepage</a> or read our <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/getting-started/introduction/">getting started guide</a>.</p>
+      <p class="mb-1">NuestroTubo. Trabajo Final. Curso Python · Coderhouse. Guillermo Gravino.</p>
+      <!-- <p class="mb-0">New to Bootstrap? <a href="file:///">Visit the homepage</a> or read our <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/getting-started/introduction/">getting started guide</a>.</p> -->
     </div>
   </footer>
   

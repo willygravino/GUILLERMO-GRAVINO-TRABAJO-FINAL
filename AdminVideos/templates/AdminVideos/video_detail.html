@@ -1,0 +1,27 @@
+{% extends "AdminVideos/base.html" %}
+
+{% load static %}
+
+{% block principal %}
+
+<div class="col">
+    <div class="card shadow-sm">
+      <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
+      <div class="card-body">
+        <p class="card-text">{{ video.nombre_video }} esta logueado: {{user.profile.nombre_completo}}</p>
+        <p class="card-text">{{ video.descripcion_video }}</p>
+        <a href="{{video.url_video}}" type="button" class="btn btn-sm btn-outline-secondary">VER VIDEO</a>
+        <div class="d-flex justify-content-between align-items-center">
+           <h5>quienes en este video:  {{video.quienes_aparecen}} </h5>
+           {% if user.id == video.propietario.id %}
+             <small class="text-muted">Subido por mi.</small> 
+           {% else %} 
+             <small class="text-muted">Subido por {{ video.propietario }}</small> 
+           {% endif %}
+           <small class="text-muted">Fecha de captura: {{ video.fecha_video }}</small>
+        </div>
+      </div>
+    </div>
+ </div>
+
+{% endblock %}

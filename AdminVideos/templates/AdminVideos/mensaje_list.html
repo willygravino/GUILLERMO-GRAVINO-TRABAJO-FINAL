@@ -1,0 +1,17 @@
+{% extends "AdminVideos/base.html" %}
+
+{% load static %}
+
+ {% block principal %}
+ <h1> Mis Mensajes </h1>
+<ul>
+    {%  for mensaje in mensajes  %}
+    <li> Mensaje de: {{mensaje.email}} 
+        <br> 
+        {{ mensaje.mensaje }}
+        <br>
+        <a href="{% url 'mensaje-delete' mensaje.id %}">Borrar</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "AdminVideos/base.html" %}
+
+{% load static %}
+
+{% block principal %}
+<p style="margin-top: 10px;">Estas seguro que quiere borrar el mensaje de {{ mensaje.email }}? </p>
+<form method="post">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Borrar">
+    <a class="btn btn-primary" href="{% url 'mensaje-list' %}">Cancelar</a>
+</form>
+    
+    
+{%endblock%}

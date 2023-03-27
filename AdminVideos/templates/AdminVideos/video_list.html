@@ -14,9 +14,14 @@
             <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
             <div class="card-body">
             <!-- <iframe width="560" height="315" src="{{video.image_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->   
-          <p class="card-text">{{ video.nombre_video}}</p>
-              <p class="card-text">{{ video.descripcion_video}}</p>
+          <p class="card-text">{{ video.nombre_video }} esta logueado: {{user.profile.nombre_completo}}</p>
+          <!-- % if user.profile.nombre_completo is in video.quienes_aparecen %
+            <h1>guillermo gravino está en este video</h1>
+          % endif % -->
+  
+              <p class="card-text">{{ video.descripcion_video }}</p>
               <a href="{{video.url_video}}" type="button" class="btn btn-sm btn-outline-secondary">VER VIDEO</a>
+              <a href="{% url 'videos-detail' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Detalle del Video</a>
               <div class="d-flex justify-content-between align-items-center">
             <!--  <h5>quienes en este video:  {{video.quienes_aparecen}} </h5>-->
               {% if user.id == video.propietario.id %}
@@ -36,6 +41,8 @@
         </div>
 
       {% endfor %}
+  {% else %} 
+  <h1>Aún no hay videos en los que aparecés</h1>
   {% endif %}
     
 {% else %}

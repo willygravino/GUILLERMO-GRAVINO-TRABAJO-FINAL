@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from AdminVideos.models import Video, Profile 
+from AdminVideos.models import Video, Profile, Mensaje
 # from AdminVideos.forms import VideoForm
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView #, DetailView,  
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
-from AdminVideos.forms import UsuarioForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 
@@ -13,16 +13,19 @@ from django.contrib.auth.models import User
 def index(request):
     return render(request, "AdminVideos/index.html")
 
+def about(request):
+    return render(request, "AdminVideos/about.html")
+
 
 class VideoList(ListView):
     model = Video
     context_object_name = "videos"
 
     def get_queryset(self):
-        query  = "Ernesto Martinez" # Profile.nombre_completo # User.nombre_y_apellido? aquí irá el nombre del usuario logueado
+        query  =  self.request.user.profile.nombre_completo # aquí irá el nombre del usuario logueado
         object_list = Video.objects.filter(quienes_aparecen__icontains=query)
-        return object_list 
-   
+        return object_list
+           
    
     #def get_queryset(self):
     #    query = self.request.GET.get('q')
@@ -33,12 +36,12 @@ class VideoList(ListView):
 class VideoMineList(LoginRequiredMixin, VideoList):
     
     def get_queryset(self):
-        return Video.objects.filter(publisher=self.request.user.id).all()
+        return Video.objects.filter(propietario=self.request.user.id).all()
 
 
-#class VideoDetail(DetailView):
-#    model = Video
-#    context_object_name = "video"
+class VideoDetail(DetailView):
+    model = Video
+    context_object_name = "video"
 
 
 class VideoUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -83,7 +86,7 @@ class Login(LoginView):
 
 
 class SignUp(CreateView):
-    form_class = UsuarioForm
+    form_class = UserCreationForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('videos-list')
 
@@ -110,26 +113,26 @@ class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
         return Profile.objects.filter(user=self.request.user).exists()
 
 
-#class MensajeCreate(CreateView):
- #   model = Mensaje
- #   success_url = reverse_lazy('mensaje-create')
- #   fields = '__all__'
+class MensajeCreate(CreateView):
+   model = Mensaje
+   success_url = reverse_lazy('videos-list')
+   fields = '__all__'
 
 
-#class MensajeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#    model = Mensaje
-#    context_object_name = "mensaje"
-#    success_url = reverse_lazy("mensaje-list")
+class MensajeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+   model = Mensaje
+   context_object_name = "mensaje"
+   success_url = reverse_lazy("mensaje-list")
 
- #   def test_func(self):
- #       return Mensaje.objects.filter(destinatario=self.request.user).exists()
+   def test_func(self):
+       return Mensaje.objects.filter(destinatario=self.request.user).exists()
     
 
-#class MensajeList(LoginRequiredMixin, ListView):
-#    model = Mensaje
-#    context_object_name = "mensajes"
+class MensajeList(LoginRequiredMixin, ListView):
+   model = Mensaje
+   context_object_name = "mensajes"
 
-#    def get_queryset(self):
-#        import pdb; pdb.set_trace
-#        return Mensaje.objects.filter(destinatario=self.request.user).all()
+   def get_queryset(self):
+       import pdb; pdb.set_trace
+       return Mensaje.objects.filter(destinatario=self.request.user).all()
     
