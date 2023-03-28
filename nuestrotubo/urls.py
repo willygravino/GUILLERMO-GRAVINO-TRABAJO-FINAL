@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from AdminVideos.views import index, VideoList, VideoUpdate, VideoDelete, VideoCreate, Login, Logout, SignUp, ProfileCreate, ProfileUpdate, about, VideoDetail, MensajeCreate, MensajeList, MensajeDelete, VideoMineList
+from AdminVideos.views import index, VideoList, VideoUpdate, VideoDelete, VideoCreate, Login, Logout, SignUp, ProfileCreate, ProfileUpdate, about, VideoDetail, MensajeCreate, MensajeList, MensajeDelete#, VideosMineList
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -23,7 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
-  #  path('videos/list', VideoList.as_view(), name="videos-list"),
+   # path('videos/list', VideosMineList.as_view(), name="videos-mine"),
     path('videos/list', VideoList.as_view(), name="videos-list"),
     path('videos/<pk>/update', VideoUpdate.as_view(), name="videos-update"),
     path('videos/<pk>/delete', VideoDelete.as_view(), name="videos-delete"),

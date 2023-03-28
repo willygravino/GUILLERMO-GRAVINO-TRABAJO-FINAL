@@ -9,26 +9,47 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 
 
-
 def index(request):
     return render(request, "AdminVideos/index.html")
-
+   
 def about(request):
     return render(request, "AdminVideos/about.html")
-
 
 class VideoList(ListView):
     model = Video
     context_object_name = "videos"
 
     def get_queryset(self):
-        query  =  self.request.user.profile.nombre_completo # aquí irá el nombre del usuario logueado
-        if query:
-           object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+        if self.request.user.is_authenticated:
+            try:
+                if self.request.user.profile:
+                        query = self.request.user.profile.nombre_completo
+                        if query:
+                            object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+            except Exception:
+               object_list = Video.objects.filter(quienes_aparecen__icontains="%%")
         else:
-           object_list = Video.objects.filter(quienes_aparecen__icontains="%%") 
+            object_list = Video.objects.filter(quienes_aparecen__icontains="%%")
         return object_list
-            
+    
+#class VideosMineList(LoginRequiredMixin, VideoList):
+    
+ #   def get_queryset(self):
+  #      return Video.objects.filter(propietario=self.request.user.id).all()
+    
+
+#class VideoList(ListView):
+#    context_object_name = "videos"
+#   model = Video
+
+ #   def get_queryset(self):
+ #       query  =  self.request.user.profile.nombre_completo # aquí irá el nombre del usuario logueado
+ #       if query:
+ #          object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+ #       else:
+ #          query = self.request.user #lo nuevo
+ #          object_list = Video.objects.filter(quienes_aparecen__icontains=query) 
+ #       return object_list           
    
     #def get_queryset(self):
     #    query = self.request.GET.get('q')
@@ -36,8 +57,8 @@ class VideoList(ListView):
     #    return object_list
     
 
-class VideoMineList(LoginRequiredMixin, VideoList):
-    
+
+  
     def get_queryset(self):
         return Video.objects.filter(propietario=self.request.user.id).all()
 
@@ -53,18 +74,12 @@ class VideoUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ["nombre_video","url_video","descripcion_video","quienes_aparecen","image","fecha_video"]
     #fields = '__all__'
 
-    def form_valid(self, form):
-        el_propietario = form.save(commit=False)
-        el_propietario.propietario = self.request.user
-        el_propietario.save()
-        return redirect(self.success_url)
-
     def test_func(self):
         user_id = self.request.user.id
         video_id =  self.kwargs.get("pk")
         return Video.objects.filter(propietario=user_id, id=video_id).exists()
     
-
+    
 
 
 class VideoDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

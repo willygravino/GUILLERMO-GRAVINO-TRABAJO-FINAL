@@ -4,22 +4,27 @@
 {% block principal %}
 
 <main>
- {% if user.profile.nombre_completo == "" %}
-      <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">COMPLETÁ TU PERFIL</h1>
-          <p class="lead text-muted">Una vez que ingreses tu nombre completo, podrás acceder a los videos en los que apareces.</p>
-         <!-- <p>
-            <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#" class="btn btn-secondary my-2">Secondary action</a>
-          </p> -->
-        </div>
-      </div>
-    </section>
+ {% if user.is_authenticated %} 
+    {% if user.profile.nombre_completo == "" %}
+          <section class="py-5 text-center container">
+          <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="fw-light">COMPLETÁ TU PERFIL</h1>
+              <p class="lead text-muted">Una vez que ingreses tu nombre completo, podrás acceder a los videos en los que apareces.</p>
+            <!-- <p>
+                <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#" class="btn btn-primary my-2">Main call to action</a>
+                <a href="file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html#" class="btn btn-secondary my-2">Secondary action</a>
+              </p> -->
+            </div>
+          </div>
+        </section>
+    {% else %}
+      <h1 class="fw-light">ir a video-list</h1>
+    {% endif %}    
+{% else %}
+<h1 class="fw-light">LOGUEESE PARA CONTINUAR</h1>
 
-  {% endif %}
-
+{% endif %}
   
     <div class="album py-5 bg-light">
       <div class="container">
