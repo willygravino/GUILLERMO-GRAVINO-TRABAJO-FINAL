@@ -5,9 +5,13 @@
 {% block principal %}
 <div style="margin-top:40px">
     <form method="post" enctype="multipart/form-data"> 
+    <center>
+      <p>    
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Actualizar">
+      </p>
+    </center>    
     </form>
 </div>
 {% endblock %}

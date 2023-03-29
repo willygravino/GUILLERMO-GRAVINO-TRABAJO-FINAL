@@ -33,15 +33,15 @@
         </div>
 
       {% endfor %}
-  {% else %} 
-  <section class="py-1 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-15 col-md-15 mx-auto">
-        <h1 class="fw-light">Aún no hay videos en los que aparecés.</h1>
-        <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-       </div>
-    </div>
-  </section>
+  {% elif user.profile.nombre_completo %}
+         <section class="py-1 text-center container">
+           <div class="row py-lg-5">
+             <div class="col-lg-15 col-md-15 mx-auto">
+               <h1 class="fw-light">Aún no hay videos en los que aparecés.</h1>
+               <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+             </div>
+            </div>
+          </section>
   {% endif %}
     
 {% endif %}
