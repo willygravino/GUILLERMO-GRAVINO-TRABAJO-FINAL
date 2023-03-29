@@ -97,16 +97,22 @@ class Logout(LogoutView):
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
     success_url = reverse_lazy("videos-list")
-    fields = '__all__'
-    
+    fields = ["nombre_completo","avatar"]
+
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        el_user = form.save(commit=False)
+        el_user.user = self.request.user
+        el_user.save()
+        return redirect(self.success_url)
+
+ #   def form_valid(self, form):
+ #       form.instance.user = self.request.user
+ #       return super().form_valid(form)
 
 class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
     model = Profile
     success_url = reverse_lazy("videos-list")
-    fields = '__all__'
+    fields = ["nombre_completo","avatar"]
 
     def test_func(self):
         return Profile.objects.filter(user=self.request.user).exists()

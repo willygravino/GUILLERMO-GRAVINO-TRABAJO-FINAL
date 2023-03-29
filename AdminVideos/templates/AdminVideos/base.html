@@ -95,7 +95,8 @@
       </div>
     </div>
   </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
+
+<div class="navbar navbar-dark bg-dark shadow-sm">
 
   <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
     <strong>Inicio</strong>
@@ -104,67 +105,64 @@
   <a href="{% url 'about' %}" class="navbar-brand d-flex align-items-center">
     <strong>About</strong>
   </a>
+  
+ {%if user.profile.avatar_url %}
+     <img src="{{user.profile.avatar_url}}" height="80" width="80">
+     <div class="container">
+ {% endif %} 
 
   <a href="{% url 'mensaje-create' %}" class="navbar-brand d-flex align-items-center">
     <strong>Enviar Mensaje</strong>
   </a>
- 
-  {%if user.profile.avatar_url %}
-     <img src="{{user.profile.avatar_url}}" height="144" width="144">
-     <div class="container">
-  {% endif %} 
+ {% if user.is_authenticated  %}
+    <a href= "{% url 'videos-mine' %}" class="navbar-brand d-flex align-items-center">
+       <strong>Mis Videos</strong>
+    </a> 
 
-      {% if user.is_authenticated  %}
+    <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Videos en los que aparezco</strong>
+    </a>
 
-      <a href= "{% url 'videos-mine' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Mis Videos</strong>
-      </a> 
+    <a href="{% url 'videos-create' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Nuevo Video</strong>
+    </a>
 
-        <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Videos en los que aparezco</strong>
-        </a>
+    <a href="{% url 'mensaje-list' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Mensajes</strong>
+    </a>
 
-        <a href="{% url 'videos-create' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Nuevo Video</strong>
-        </a>
-
-        <a href="{% url 'mensaje-list' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Mensajes</strong>
-        </a>
-
-        {% if user.profile %}
-        <a href="{% url 'profile-update' user.profile.id %}" class="navbar-brand d-flex align-items-center">
-          <strong>Editar Perfil de {{user.profile.nombre_completo}}</strong>
-        </a>
+    {% if user.profile %}
+      <a href="{% url 'profile-update' user.profile.id %}" class="navbar-brand d-flex align-items-center">
+        <strong>Editar Perfil Logueado  {{user.profile.nombre_completo}}</strong>
+      </a>
        
-        {% else %}
-         <!-- <h1>ESTE SISTEMA NO FUNCIONA HASTA QUE NO INGRESE SU NOMBRE EN EL PERFIL</h1> -->
-        <a href="{% url 'profile-create' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Completar Perfil</strong>
-        </a>
-
-        {% endif %}
-       
-        <a href="{% url 'logout' %}" class="navbar-brand d-flex align-items-center">
-          <strong>Hola {{user.username}} | Salir</strong>
-        </a>
-
-      {% else %} 
-
-      <a href="{% url 'login' %}" class="navbar-brand d-flex align-items-center">
-         <strong>Login</strong>
+    {% else %}
+      <a href="{% url 'profile-create' %}" class="navbar-brand d-flex align-items-center">
+        <strong>Completar Perfil</strong>
       </a>
 
-      <a href="{% url 'signup' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Registrarse</strong>
-      </a>
-      {% endif %}  
+    {% endif %}
+       
+    <a href="{% url 'logout' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Hola {{user.username}} | Salir</strong>
+    </a>
+
+  {% else %} 
+    <a href="{% url 'login' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Login</strong>
+    </a>
+
+    <a href="{% url 'signup' %}" class="navbar-brand d-flex align-items-center">
+      <strong>Registrarse</strong>
+    </a>
+  {% endif %}  
       
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
+</div>
+
 </header>
 
 {% block principal %}
