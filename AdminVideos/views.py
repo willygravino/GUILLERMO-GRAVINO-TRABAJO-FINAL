@@ -26,42 +26,17 @@ class VideoList(ListView):
                         query = self.request.user.profile.nombre_completo
                         if query:
                             object_list = Video.objects.filter(quienes_aparecen__icontains=query)
+                        return object_list
             except Exception:
                object_list = Video.objects.filter(quienes_aparecen__icontains="%%")
+            return object_list
         else:
             object_list = Video.objects.filter(quienes_aparecen__icontains="%%")
         return object_list
     
-#class VideosMineList(LoginRequiredMixin, VideoList):
-    
- #   def get_queryset(self):
-  #      return Video.objects.filter(propietario=self.request.user.id).all()
-    
-
-#class VideoList(ListView):
-#    context_object_name = "videos"
-#   model = Video
-
- #   def get_queryset(self):
- #       query  =  self.request.user.profile.nombre_completo # aquí irá el nombre del usuario logueado
- #       if query:
- #          object_list = Video.objects.filter(quienes_aparecen__icontains=query)
- #       else:
- #          query = self.request.user #lo nuevo
- #          object_list = Video.objects.filter(quienes_aparecen__icontains=query) 
- #       return object_list           
-   
-    #def get_queryset(self):
-    #    query = self.request.GET.get('q')
-    #    object_list = Movie.objects.filter(Q(title__icontains=query)|Q(genre__icontains=query))
-    #    return object_list
-    
-
-
-  
-    def get_queryset(self):
-        return Video.objects.filter(propietario=self.request.user.id).all()
-
+class VideosMineList(LoginRequiredMixin, VideoList):
+   def get_queryset(self):
+      return Video.objects.filter(propietario=self.request.user.id) #.all()
 
 class VideoDetail(DetailView):
     model = Video

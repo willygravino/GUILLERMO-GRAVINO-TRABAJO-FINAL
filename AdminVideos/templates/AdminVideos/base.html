@@ -116,9 +116,9 @@
 
       {% if user.is_authenticated  %}
 
-      <!-- <a href="% url 'videos-mine' %" class="navbar-brand d-flex align-items-center"> -->
+      <a href= "{% url 'videos-mine' %}" class="navbar-brand d-flex align-items-center">
         <strong>Mis Videos</strong>
-      </a>
+      </a> 
 
         <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
           <strong>Videos en los que aparezco</strong>
