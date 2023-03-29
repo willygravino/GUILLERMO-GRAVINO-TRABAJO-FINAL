@@ -36,7 +36,7 @@ class Profile(models.Model):
 
      @property
      def avatar_url(self):
-        return self.avatar.url if self.avatar else ''
+        return self.avatar.url if self.avatar else '/media/avatares/default-avatar.png'
      
 
      
