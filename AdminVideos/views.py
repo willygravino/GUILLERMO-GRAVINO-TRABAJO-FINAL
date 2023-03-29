@@ -80,16 +80,6 @@ class VideoCreate(LoginRequiredMixin, CreateView):
         el_propietario.save()
         return redirect(self.success_url)
 
-
-#class VideoSearch(ListView):
-#    model = Video
-#    context_object_name = "videos"
-
- #   def get_queryset(self):
- #       criterio = self.request.GET.get("criterio")
- #       result = Video.objects.filter(carousel_caption_title__icontains=criterio).all()
- #       return result
-
 class Login(LoginView):
     next_page = reverse_lazy("videos-list")
 
