@@ -1,55 +1,23 @@
 {% extends "AdminVideos/base.html" %}
+
 {% load static %}
 
 {% block principal %}
 
 <main>
- <!-- {% if user.is_authenticated %} 
-    {% if user.profile.nombre_completo == "" %}
-      <div class="album py-5 bg-light">
-        <div class="container"> 
-           <section class="py-5 text-center container">
-             <div class="row py-lg-5">
-               <div class="col-lg-6 col-md-8 mx-auto">
-                 <h1 class="fw-light">Creá tu perfil.</h1>
-                 <p class="lead text-muted">Una vez que ingreses tu nombre completo, podrás acceder a los videos en los que apareces.</p>
-                </div>
-              </div>
-            </section>
-         </div>
-       </div>
-            
-    {% else %}
-    <div class="album py-5 bg-light">
-      <div class="container"> 
-        <section class="py-5 text-center container">
-          <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-               <h1 class="fw-light">Ingresá a ver los videos en los que aparecés.</h1>
-               <p class="lead text-muted">xxxxxxxxx.</p>
-            </div>
-          </div>
-        </section>
+   <div class="album py-1 bg-light">
+     <div class="container"> 
+        <section class="py-1 text-center container">
+          <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-6 mx-auto">
+              <h3 class="fw-light">NuestroTubo.</h3>
+              <p class="lead text-muted">Versión 1.0</p>
+             </div>
+           </div>
+         </section>
       </div>
     </div>
-
-    {% endif %}    
-{% else %}
-<div class="album py-5 bg-light">
-  <div class="container">
-  <section class="py-1 text-center container">
-  <div class="row py-lg-5">
-    <div class="col-lg-8 col-md-8 mx-auto">
-      <h1 class="fw-light">Logueate para ingresar al sistema.</h1>
-      <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-     </div>
-    </div>
-  </section>
-  </div>
-</div> 
-
-{% endif %}
--->
+ 
 {% block un_video %}
 {% endblock %}
 

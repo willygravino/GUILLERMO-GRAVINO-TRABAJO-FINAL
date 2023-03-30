@@ -16,10 +16,10 @@ class Video(models.Model):
     nombre_video = models.CharField(max_length=30)
     url_video = models.CharField(max_length=80, blank=False)
     descripcion_video = models.CharField(max_length=300)
-    quienes_aparecen = models.CharField('Ingrese el nombre y apellido de quienes participan en el video, separados por coma', max_length=120, blank=False)
+    quienes_aparecen = models.CharField('Ingresá el nombre y apellido de quienes participan en el video, separados por coma', max_length=120, blank=False)
     propietario = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="propietario")
-    image = models.ImageField(upload_to="videos/", null=True, blank=True)
-    fecha_video= models.DateTimeField()
+    image = models.ImageField("Subí una imagen que identifique al video (o un fotograma del mismo)", upload_to="videos/", null=True, blank=True)
+    fecha_video= models.DateTimeField("Fecha de captura del video:")
 
     @property
     def image_url(self):

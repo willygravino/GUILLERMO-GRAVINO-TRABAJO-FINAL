@@ -3,22 +3,19 @@
 {% load static %}
 
  {% block principal %}
- <div class="album py-5 bg-light">
-    <div class="container">
-    <section class="py-1 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-8 col-md-8 mx-auto">
-        <h1 class="fw-light">Mis Mensajes.</h1>
-        <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-       </div>
-      </div>
-    </section>
-    </div>
-  </div>
-<ul>
+ 
     
 {% if mensajes %} 
     {% for mensaje in mensajes  %}
+    <section class="py-1 text-center container">
+      <div class="row py-lg-1">
+        <div class="col-lg-8 col-md-8 mx-auto">
+          <h1 class="fw-light">Mis Mensajes.</h1>
+          <p class="lead text-body-secondary">Estos son los mensajes que dejaron para vos.</p>
+
+        </div>
+      </div>
+    </section>
       <center>
           <p>    
             <li> Mensaje de: {{mensaje.email}} 
@@ -31,8 +28,18 @@
         </center>
     {% endfor %}    
 {% else %}
-    <h1>No hay mensajes para mostrar.</h1> 
+<div class="album py-5 bg-light">
+  <div class="container">
+    <section class="py-1 text-center container">
+      <div class="row py-lg-1">
+        <div class="col-lg-8 col-md-8 mx-auto">
+          <h1 class="fw-light">No te enviaron mensajes aún.</h1>
+        </div>
+      </div>
+    </section>
+</div>
+</div> 
+ 
 {% endif %}               
     
-</ul>
 {% endblock %}

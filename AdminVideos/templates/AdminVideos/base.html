@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0082)file:///Users/guillermo/Downloads/bootstrap-5.3.0-alpha1-examples/album/index.html -->
 <html lang="es-AR">
   
 <head>
@@ -77,7 +76,7 @@
     
 
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
+  <!-- <div class="collapse bg-dark" id="navbarHeader">
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
@@ -94,7 +93,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 <div class="navbar navbar-dark bg-dark shadow-sm">
 
@@ -107,9 +106,10 @@
   </a>
   
  {%if user.profile.avatar_url %}
-     <img src="{{user.profile.avatar_url}}" height="80" width="80">
-     <div class="container">
- {% endif %} 
+     <a href="{% url 'about' %}" class="navbar-brand d-flex align-items-center">
+      <img src="{{user.profile.avatar_url}}" height="50" width="60">
+     </a>
+  {% endif %} 
 
   <a href="{% url 'mensaje-create' %}" class="navbar-brand d-flex align-items-center">
     <strong>Enviar Mensaje</strong>
@@ -120,7 +120,7 @@
     </a> 
 
     <a href="{% url 'videos-list' %}" class="navbar-brand d-flex align-items-center">
-      <strong>Videos en los que aparezco</strong>
+      <strong>Nuestro Tubo</strong>
     </a>
 
     <a href="{% url 'videos-create' %}" class="navbar-brand d-flex align-items-center">
@@ -128,12 +128,12 @@
     </a>
 
     <a href="{% url 'mensaje-list' %}" class="navbar-brand d-flex align-items-center">
-      <strong>Mensajes</strong>
+      <strong>Mis Mensajes</strong>
     </a>
 
     {% if user.profile %}
       <a href="{% url 'profile-update' user.profile.id %}" class="navbar-brand d-flex align-items-center">
-        <strong>Editar Perfil Logueado  {{user.profile.nombre_completo}}</strong>
+        <strong>Perfil ({{user.profile.nombre_completo}})</strong>
       </a>
        
     {% else %}
