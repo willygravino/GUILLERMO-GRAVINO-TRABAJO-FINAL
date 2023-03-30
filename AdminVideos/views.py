@@ -35,7 +35,9 @@ class VideoList(ListView):
         return object_list
     
 class VideosMineList(LoginRequiredMixin, VideoList):
-   def get_queryset(self):
+    template_name = 'AdminVideos/videosmine_list.html' 
+
+    def get_queryset(self):
       return Video.objects.filter(propietario=self.request.user.id) #.all()
 
 class VideoDetail(DetailView):

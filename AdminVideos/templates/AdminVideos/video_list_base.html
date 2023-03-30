@@ -1,0 +1,56 @@
+{% extends "AdminVideos/index.html" %}
+
+{% load static %}
+
+ {% block un_video %}
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+{% if user.is_authenticated %}
+  {% if videos %}
+    {% block titulo_ok %} {% endblock %}
+    {% for video in videos %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="card-img-top" style="height: 225px; width: 100%; display: block" src="{{video.image_url}}" data-holder-rendered="true">
+            <div class="card-body">
+              <p class="card-text">{{ video.nombre_video }} esta logueado: {{user.profile.nombre_completo}}</p>
+              <p class="card-text">{{ video.descripcion_video }}</p>
+              <a href="{{video.url_video}}" type="button" class="btn btn-sm btn-outline-secondary">VER VIDEO</a>
+              <a href="{% url 'videos-detail' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Detalle del Video</a>
+              <div class="d-flex justify-content-between align-items-center">
+              {% if user.id == video.propietario.id %}
+                <div class="btn-group">
+                  <a href="{% url 'videos-delete' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Eliminar</a>
+                  <a href="{% url 'videos-update' video.id %}" type="button" class="btn btn-sm btn-outline-secondary">Editar</a>
+                </div>
+                <small class="text-muted">Subido por mi.</small> 
+              {% else %} 
+                <small class="text-muted">Subido por {{ video.propietario }}</small> 
+              {% endif %}
+                  <small class="text-muted">Fecha de captura: {{ video.fecha_video }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+  {% elif user.profile.nombre_completo %}
+        {% block mensaje %}{% endblock %}
+         <!-- <section class="py-1 text-center container">
+           <div class="row py-lg-5">
+             <div class="col-lg-15 col-md-15 mx-auto">
+               <h1 class="fw-light"> </h1>
+               <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+             </div>
+            </div>
+          </section>> -->
+  {% endif %}
+    
+{% endif %}
+
+{% endblock %}
+
+
+
+
