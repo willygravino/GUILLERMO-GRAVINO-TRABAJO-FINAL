@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect
 from AdminVideos.models import Video, Profile, Mensaje
-# from AdminVideos.forms import VideoForm
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
-
 
 def index(request):
     return render(request, "AdminVideos/index.html")
@@ -38,7 +35,7 @@ class VideosMineList(LoginRequiredMixin, VideoList):
     template_name = 'AdminVideos/videosmine_list.html' 
 
     def get_queryset(self):
-      return Video.objects.filter(propietario=self.request.user.id) #.all()
+      return Video.objects.filter(propietario=self.request.user.id)
 
 class VideoDetail(DetailView):
     model = Video
@@ -107,9 +104,6 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
         el_user.save()
         return redirect(self.success_url)
 
- #   def form_valid(self, form):
- #       form.instance.user = self.request.user
- #       return super().form_valid(form)
 
 class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin,  UpdateView):
     model = Profile

@@ -1,17 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-    #https://www.geeksforgeeks.org/urlfield-django-models/#field-options
-    #models.URLField(max_length=200, **options)
-
-#from django.db import models
-#from django.db.models import Model
-# Create your models here.
-  
-#class GeeksModel(Model):
-   # geeks_field = models.URLField(max_length = 200)
-
-
 class Video(models.Model):
     nombre_video = models.CharField(max_length=30)
     url_video = models.CharField(max_length=80, blank=False)
@@ -38,9 +27,7 @@ class Profile(models.Model):
      def avatar_url(self):
         return self.avatar.url if self.avatar else '/media/avatares/default-avatar.png'
      
-
      
-
 class Mensaje(models.Model):
     mensaje = models.TextField(max_length=1000)
     email = models.EmailField()
