@@ -5,8 +5,8 @@
 {% block principal %}
 
 <main>
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
+  <section class="py-3 text-center container">
+    <div class="row py-lg-1">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h3 class="fw-light">NuestroTubo.</h3>
         <p class="lead text-muted">Versión 1.0</p>
@@ -16,14 +16,27 @@
 
   {% if user.is_authenticated %}
     {% if user.profile.nombre_completo and not videos%}
-      {% block mensaje %}{% endblock %}
+      <section class="py-3 text-center container">
+        <div class="row py-lg-1">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            {% block mensaje %}{% endblock %}          
+          </div>
+        </div>
+      </section>
+      
     {% else %}
-      {% block titulo_ok %}{% endblock %}
+    <section class="py-0 text-center container">
+      <div class="row py-lg-1">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          {% block titulo_ok %}{% endblock %}
+        </div>
+       </div>
+     </section>
     {% endif %}       
   {% else %}
-    <section class="py-1 text-center container">
+    <section class="py-0 text-center container">
       <div class="row py-lg-1">
-        <div class="col-lg-8 col-md-8 mx-auto">
+        <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light"> Logueate para comenzar. </h1>
           <p>
             <a href="{% url 'login' %}" class="btn btn-primary my-2">Login</a>
@@ -34,9 +47,16 @@
     </section>
   
 {% endif %}
-  
-{% block un_video %}
-{% endblock %}
+
+<div class="album py-3 bg-body-tertiary">
+  <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% block un_video %}
+          {% endblock %}
+        </div>
+      </div>
+   </div>  
+
 
 </main>
 

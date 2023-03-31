@@ -3,12 +3,20 @@
 {% load static %}
 
 {% block principal %}
-<h1>Esta seguro de borrar el video?</h1>
-<div style="margin-top:40px">
+
+<section class="py-0 text-center container">
+  <div class="row py-lg-1">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light"> ¿Estás seguro de que querés borrar el video? </h1>
+    </div>
+  </div>
+  <div style="margin-top:40px">
     <form method="post" enctype="multipart/form-data"> 
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Borrar">
     </form>
-</div>
+  </div>
+</section>
+
 {% endblock %}
