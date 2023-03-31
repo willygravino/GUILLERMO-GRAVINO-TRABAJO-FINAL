@@ -8,7 +8,7 @@
 
   <section class="py-3 text-center container">
     <div class="row py-lg-1">
-      <div class="col-lg-6 col-md-8 mx-auto">
+      <div class="col-lg-10 col-md-8 mx-auto">
         <h3 class="fw-light">NuestroTubo.</h3>
         <p class="lead text-muted">Versión 1.0</p>
       </div>
@@ -28,7 +28,7 @@
      {% else %}
        <section class="py-0 text-center container">
          <div class="row py-lg-1">
-           <div class="col-lg-6 col-md-8 mx-auto">
+           <div class="col-lg-10 col-md-8 mx-auto">
              {% block titulo_ok %}{% endblock %}
            </div>
         </div>
@@ -37,7 +37,7 @@
     {% else %}  
        <section class="py-0 text-center container">
          <div class="row py-lg-1">
-           <div class="col-lg-6 col-md-8 mx-auto">
+           <div class="col-lg-10 col-md-8 mx-auto">
              <h1 class="fw-light"> Es necesario que completes tu perfil. </h1>
              <p class="lead text-body-secondary">Completá el perfil con tu nombre y apellido en Completar perfil, para poder ver los videos que comparten con vos.</p>
            </div>
@@ -47,7 +47,7 @@
   {% else %}
     <section class="py-0 text-center container">
       <div class="row py-lg-1">
-        <div class="col-lg-6 col-md-8 mx-auto">
+        <div class="col-lg-10 col-md-8 mx-auto">
           <h1 class="fw-light"> Logueate para comenzar. </h1>
           <p>
             <a href="{% url 'login' %}" class="btn btn-primary my-2">Login</a>

@@ -167,11 +167,11 @@
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Inicio</strong>
+        Inicio
       </a>
 
       <a href="{% url 'about' %}" class="navbar-brand d-flex align-items-center">
-        <strong>About</strong>
+        About
       </a>
   
       {%if user.profile.avatar_url %}
@@ -193,7 +193,7 @@
       </a>
 
       <a href="{% url 'videos-create' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Cargar Video</strong>
+        <strong>Publicar Video</strong>
       </a>
 
       <a href="{% url 'mensaje-list' %}" class="navbar-brand d-flex align-items-center">
@@ -218,11 +218,11 @@
 
   {% else %} 
     <a href="{% url 'login' %}" class="navbar-brand d-flex align-items-center">
-      <strong>Login</strong>
+      Login
     </a>
 
     <a href="{% url 'signup' %}" class="navbar-brand d-flex align-items-center">
-      <strong>Registrarse</strong>
+      Registrarse
     </a>
   {% endif %}  
       
