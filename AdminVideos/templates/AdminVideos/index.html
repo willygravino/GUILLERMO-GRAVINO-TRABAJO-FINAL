@@ -5,6 +5,7 @@
 {% block principal %}
 
 <main>
+
   <section class="py-3 text-center container">
     <div class="row py-lg-1">
       <div class="col-lg-6 col-md-8 mx-auto">
@@ -27,19 +28,19 @@
      {% else %}
        <section class="py-0 text-center container">
          <div class="row py-lg-1">
-         <div class="col-lg-6 col-md-8 mx-auto">
-           {% block titulo_ok %}{% endblock %}
-         </div>
+           <div class="col-lg-6 col-md-8 mx-auto">
+             {% block titulo_ok %}{% endblock %}
+           </div>
         </div>
        </section>
       {% endif %} 
     {% else %}  
        <section class="py-0 text-center container">
          <div class="row py-lg-1">
-         <div class="col-lg-6 col-md-8 mx-auto">
-           <h1 class="fw-light"> Es necesario que completes tu perfil. </h1>
-           <p class="lead text-body-secondary">Completá el perfil con tu nombre y apellido en Completar perfil, para poder ver los videos que comparten con vos.</p>
-         </div>
+           <div class="col-lg-6 col-md-8 mx-auto">
+             <h1 class="fw-light"> Es necesario que completes tu perfil. </h1>
+             <p class="lead text-body-secondary">Completá el perfil con tu nombre y apellido en Completar perfil, para poder ver los videos que comparten con vos.</p>
+           </div>
         </div>
        </section>
     {% endif %}
@@ -62,9 +63,9 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {% block un_video %}
           {% endblock %}
-        </div>
       </div>
-   </div>  
+  </div>
+</div>  
 
 
 </main>
