@@ -14,25 +14,35 @@
     </div>
   </section>
 
-  {% if user.is_authenticated %}
-    {% if user.profile.nombre_completo and not videos%}
-      <section class="py-3 text-center container">
-        <div class="row py-lg-1">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            {% block mensaje %}{% endblock %}          
+ {% if user.is_authenticated %}
+    {% if user.profile.nombre_completo != "" %}
+      {% if not videos%}
+        <section class="py-3 text-center container">
+          <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              {% block mensaje %}{% endblock %}          
+            </div>
           </div>
+        </section>
+     {% else %}
+       <section class="py-0 text-center container">
+         <div class="row py-lg-1">
+         <div class="col-lg-6 col-md-8 mx-auto">
+           {% block titulo_ok %}{% endblock %}
+         </div>
         </div>
-      </section>
-      
-    {% else %}
-    <section class="py-0 text-center container">
-      <div class="row py-lg-1">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          {% block titulo_ok %}{% endblock %}
+       </section>
+      {% endif %} 
+    {% else %}  
+       <section class="py-0 text-center container">
+         <div class="row py-lg-1">
+         <div class="col-lg-6 col-md-8 mx-auto">
+           <h1 class="fw-light"> Es necesario que completes tu perfil. </h1>
+           <p class="lead text-body-secondary">Completá el perfil con tu nombre y apellido en Completar perfil, para poder ver los videos que comparten con vos.</p>
+         </div>
         </div>
-       </div>
-     </section>
-    {% endif %}       
+       </section>
+    {% endif %}
   {% else %}
     <section class="py-0 text-center container">
       <div class="row py-lg-1">
@@ -45,7 +55,6 @@
         </div>
       </div>
     </section>
-  
 {% endif %}
 
 <div class="album py-3 bg-body-tertiary">
