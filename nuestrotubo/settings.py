@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ff(ii27o)5bnj*cy5l6bz1hr=hecla%@rxat^zg8g*&6z&e1dx'
+# SECRET_KEY = 'django-insecure-ff(ii27o)5bnj*cy5l6bz1hr=hecla%@rxat^zg8g*&6z&e1dx'
 
+
+SECRET_KEY = os.environ.get("SECRET_KEY") #gregado por mi por seguridad, en flyio después brindaré esta clave
+
+CSRF_COOKIE_SECURE = True # AGREGADO POR MI!!!!!!!!!!!!!!!!!
+ 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+APP_NAME = os.environ.get("FLY_APP_NAME")
+ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev"]  # ← Updated!
 
+SECURE_SSL_REDIRECT = True #AGREGADO POR MI!!!!!!!!!!!!!!!!!!!!!!!!
+
+SESSION_COOKIE_SECURE = True #AGREGADO POR MI!!!!!!!!!!!!!!!!!!!!!!!!
 
 # Application definition
 
@@ -79,6 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'CONN_MAX_AGE': 600,  # El tiempo en segundos, por ejemplo 600 segundos = 10 minutos AGREGADO POR MI!!!!!!!
+
     }
 }
 
