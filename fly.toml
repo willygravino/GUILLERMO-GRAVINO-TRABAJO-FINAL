@@ -20,6 +20,10 @@ console_command = '/code/manage.py shell'
   min_machines_running = 0
   processes = ['app']
 
+[mounts]
+  source="nuevo_volumen_nombre"
+  destination="/mnt/nuevo_volumen_nombre"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
