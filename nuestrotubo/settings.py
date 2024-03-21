@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY") #gregado por mi por seguridad, en flyio después brindaré esta clave
 
-CSRF_COOKIE_SECURE = True # AGREGADO POR MI!!!!!!!!!!!!!!!!!
+# CSRF_COOKIE_SECURE = True # AGREGADO POR MI!!!!!!!!!!!!!!!!! ELIMINADO 4
  
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,11 +35,21 @@ DEBUG = True
 APP_NAME = os.environ.get("FLY_APP_NAME")
 ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev"]  # ← Updated!
 
-SECURE_SSL_REDIRECT = True #AGREGADO POR MI!!!!!!!!!!!!!!!!!!!!!!!!
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https") # AGREDADO POR MI SACADO DE LA SESIÓN DEL GITHUB!!!!!! (SERÁ LA CLAVE????)
+
+
+# SECURE_SSL_REDIRECT = True #AGREGADO POR MI!!!!!!!!!!!!!!!!!!!!!!!!
+
+# CORS_ALLOW_ALL_ORIGINS = True  # AGREDADO POR MI SACADO DE LA SESIÓN DEL GITHUB!!!!!! /// ELIMINADO 1
 
 SESSION_COOKIE_SECURE = True #AGREGADO POR MI!!!!!!!!!!!!!!!!!!!!!!!!
 
 # Application definition
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://trabajo-final.fly.dev",
+#     # Agrega otros orígenes permitidos según sea necesario
+# ] ELIMINADO 2
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware', # nuevo TRAIDO DEL SETINGS GITHUB / ELIMINADO 3
 ]
 
 ROOT_URLCONF = 'nuestrotubo.urls'
