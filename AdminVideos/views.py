@@ -3,8 +3,12 @@ from AdminVideos.models import Video, Profile, Mensaje
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
 
 def index(request):
     return render(request, "AdminVideos/index.html")
@@ -89,8 +93,10 @@ class SignUp(CreateView):
     success_url = reverse_lazy('videos-list')
 
 
-class Logout(LogoutView):
-    template_name = "registration/logout.html"
+@login_required
+def user_logout(request):
+    logout(request)
+    return render(request, 'registration/logout.html', {})
 
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
